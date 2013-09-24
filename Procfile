@@ -1,1 +1,1 @@
-web: gunicorn run_allergy_merlin:app
+web: gunicorn run_quiz:app

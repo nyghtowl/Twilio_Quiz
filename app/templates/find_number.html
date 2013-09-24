@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Send Messages Through Twilio</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
+    <script src="/static/js/ui.js"></script>
+    <!-- Some ajax magic to hit our back end and make calls/send messages -->
+    <script src="/static/js/form.js"></script>
+
+</head>
+<body>
+    <!-- A simple UI to test our Twilio back end -->
+    <div id="content">
+
+    <div>
+        {{ numbers }}
+    </div>
+
+    <div>  
+        <form action="{{ url_for('purchase') }}" method="POST">
+            <input id="top_coord" name="chosen_number"></input>
+            <input type="submit" value="submit"></input>
+        </form>
+    </div>
+    
+    </div>
+
+</body>
+</html>

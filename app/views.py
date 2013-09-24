@@ -6,6 +6,9 @@ from twilio import twiml
 from twilio.rest import TwilioRestClient
 import re
 
+# create an authenticated client that can make requests to Twilio for your
+# account.
+client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 @app.route('/')
 @app.route('/index')
@@ -81,3 +84,35 @@ def quiz_game():
 
     response.sms(message)
     return Response(str(response), mimetype='text/xml')
+
+# Challenge 6 - Find available phone number and offer to purchase if found
+@app.route("/find_number")
+def find_number():
+    phone_num =[]
+    numbers = client.phone_numbers.search(area_code="415",
+        country="US",
+        type="local")
+
+    print "find num"
+    for number in numbers:
+        phone_num.append(number.phone_number)
+
+    return render_template('find_number.html', numbers=phone_num)
+
+@app.route("/purchase", methods=['POST', 'GET'])
+def purchase():
+    # Purchase the first number in the list
+    chosen_number = request.form['chosen_number']
+    client.phone_numbers.purchase(phone_number=chosen_number)
+    return render_template('purchase.html')
+
+#Bonus
+@app.route("/current_number")
+def current_number():
+    # Print current number
+    # number = client.phone_numbers.get(TWILIO_APP_SID)
+
+    numbers = client.phone_numbers.list()
+    for number in numbers:
+       print number.phone_number
+    return ""

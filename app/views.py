@@ -20,7 +20,7 @@ def simplify_txt(submitted_txt):
     response_letters = re.sub(r'\W+', '', submitted_txt)
     return response_letters.lower()
 
-# Twiliocon challenge 4 - Create an sms quiz game
+ # Twiliocon challenge 4 - Create an sms quiz game
 @app.route("/quiz_game")
 def quiz_game():
     response = twiml.Response()
@@ -32,6 +32,7 @@ def quiz_game():
     print 1, simplify_body
     print 2, from_number
 
+
     questions = { 
             0: "What word is shorter when you add two letters to it?",
             1: "If I drink, I die. If i eat, I am fine. What am I?",
@@ -40,6 +41,7 @@ def quiz_game():
             4: ""
     }
 
+    # Stripped down answers to compare to text in case multiple word answer
     simplify_answers = { 
             1:"short", 
             2:"fire", 
@@ -47,6 +49,7 @@ def quiz_game():
             4:""
             }
 
+    # Pretty print answers
     print_answers = { 
             1:"short", 
             2:"fire", 
@@ -85,34 +88,3 @@ def quiz_game():
     response.sms(message)
     return Response(str(response), mimetype='text/xml')
 
-# Challenge 6 - Find available phone number and offer to purchase if found
-@app.route("/find_number")
-def find_number():
-    phone_num =[]
-    numbers = client.phone_numbers.search(area_code="415",
-        country="US",
-        type="local")
-
-    print "find num"
-    for number in numbers:
-        phone_num.append(number.phone_number)
-
-    return render_template('find_number.html', numbers=phone_num)
-
-@app.route("/purchase", methods=['POST', 'GET'])
-def purchase():
-    # Purchase the first number in the list
-    chosen_number = request.form['chosen_number']
-    client.phone_numbers.purchase(phone_number=chosen_number)
-    return render_template('purchase.html')
-
-#Bonus
-@app.route("/current_number")
-def current_number():
-    # Print current number
-    # number = client.phone_numbers.get(TWILIO_APP_SID)
-
-    numbers = client.phone_numbers.list()
-    for number in numbers:
-       print number.phone_number
-    return ""

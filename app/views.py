@@ -67,7 +67,7 @@ def quiz_game():
         counter = session.get('counter', 0)
         counter += 1
         session['counter'] = counter
-        message = "Shall we play a game? %s " + u"2655"  % questions[0]
+        message = "Shall we play a game? %s "  % questions[0]
     else:
         game_round = session['counter']
 

@@ -89,7 +89,7 @@ def quiz_game():
             #chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2].encode('utf-8')
             #print 102, chosen_trophy
 
-            message += '\U+1F31F'
+            message += u'\U0001F31F'
             print 103, message
         else:
             score = session[from_number]

@@ -85,7 +85,8 @@ def quiz_game():
             print 100, message
             chosen_index = random.randint(0, num_trophies-1)
             print 101, chosen_index
-            chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2]
+            # chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2]
+            chosen_trophy= trophy_chars[chosen_index]
             print 102, chosen_trophy
             message += chosen_trophy
             print 103, message

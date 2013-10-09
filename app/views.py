@@ -84,12 +84,13 @@ def quiz_game():
             message = "Correct Answer. You have %d points out of 30. %s" % (score, questions[game_round])
             # if won give trophy:
             print 100, message
-            chosen_index = random.randint(0, num_trophies-1)
+            #chosen_index = random.randint(0, num_trophies-1)
             print 101, chosen_index
-            chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2].encode('utf-8')
+            #chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2].encode('utf-8')
             # chosen_trophy= trophy_chars[chosen_index]
-            print 102, chosen_trophy
-            message += chosen_trophy
+            #print 102, chosen_trophy
+
+            message += '\xD8\x3C\xDF\xC6'
             print 103, message
         else:
             score = session[from_number]

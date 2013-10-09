@@ -12,6 +12,9 @@ import re, random
 # account.
 client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
+# We're using some chars that python doesn't know about (too recent a unicode version)
+# so we have to hack around a bit; we can't trust len(trophy_chars)
+num_trophies = 4
 trophy_chars = u'👍🏆🌟👿'
 
 @app.route('/')
@@ -79,9 +82,9 @@ def quiz_game():
 
             message = "Correct Answer. You have %d points out of 30. %s" % (score, questions[game_round])
             # if won give trophy:
-            chosen_trophy = random.choice(trophy_chars).encode('utf-8')
+            chosen_index = random.randint(0, num_trophies-1)
+            chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2].encode('utf-8')
             message += chosen_trophy
-
         else:
             score = session[from_number]
             message = "Wrong answer. We were looking for %s. Your score is %d out of 30. %s" % (print_answers[game_round], score, questions[game_round])
@@ -94,6 +97,6 @@ def quiz_game():
 
     print 4, session
 
-    response.sms(message.decode('utf-8').encode('utf-16'))
+    response.sms(message)
     return Response(str(response), mimetype='text/xml')
 

@@ -6,11 +6,13 @@ from app import app
 from config import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 from twilio import twiml
 from twilio.rest import TwilioRestClient
-import re
+import re, random
 
 # create an authenticated client that can make requests to Twilio for your
 # account.
 client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+
+trophy_chars = u'👍🏆🌟👿'
 
 @app.route('/')
 @app.route('/index')
@@ -74,7 +76,12 @@ def quiz_game():
         if simplify_answers[game_round] == simplify_body:
             session[from_number] += 10
             score = session[from_number]
+
             message = "Correct Answer. You have %d points out of 30. %s" % (score, questions[game_round])
+            # if won give trophy:
+            chosen_trophy = random.choice(trophy_chars).encode('utf-8')
+            message += chosen_trophy
+
         else:
             score = session[from_number]
             message = "Wrong answer. We were looking for %s. Your score is %d out of 30. %s" % (print_answers[game_round], score, questions[game_round])

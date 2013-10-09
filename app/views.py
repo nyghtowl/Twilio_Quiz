@@ -87,10 +87,9 @@ def quiz_game():
             #chosen_index = random.randint(0, num_trophies-1)
             # print 101, chosen_index
             #chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2].encode('utf-8')
-            # chosen_trophy= trophy_chars[chosen_index]
             #print 102, chosen_trophy
 
-            message += '🌟'
+            message += '🌟'.encode('utf-16')
             print 103, message
         else:
             score = session[from_number]

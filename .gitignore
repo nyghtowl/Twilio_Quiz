@@ -39,4 +39,3 @@ nosetests.xml
 env
 
 number base (binary, digital, hex, octal)
-x.txt

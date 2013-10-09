@@ -90,7 +90,7 @@ def quiz_game():
             # chosen_trophy= trophy_chars[chosen_index]
             #print 102, chosen_trophy
 
-            message += '\xD8\x3C\xDF\xC6'
+            message += '🌟'
             print 103, message
         else:
             score = session[from_number]

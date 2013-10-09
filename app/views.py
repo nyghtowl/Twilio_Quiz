@@ -94,6 +94,6 @@ def quiz_game():
 
     print 4, session
 
-    response.sms(message)
+    response.sms(message.decode('utf-8').encode('utf-16'))
     return Response(str(response), mimetype='text/xml')
 

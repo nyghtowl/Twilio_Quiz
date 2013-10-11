@@ -30,6 +30,7 @@ def quiz_game():
     # so we have to hack around a bit; we can't trust len(trophy_chars)
     num_trophies = 4
     trophy_chars = u'👍🏆🌟👿'
+    type ('🌟')
 
     response = twiml.Response()
 
@@ -89,7 +90,8 @@ def quiz_game():
             #chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2].encode('utf-8')
             #print 102, chosen_trophy
 
-            message += u'\U0001F31F'
+            # message += '\xff\xfed\x008\x003\x00c\x00d\x00f\x00c\x006\x00'
+            message += u'🌟'.encode('utf-8')
             print 103, message
         else:
             score = session[from_number]

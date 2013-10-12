@@ -31,6 +31,7 @@ def quiz_game():
     num_trophies = 4
     trophy_chars = u'👍🏆🌟👿'
     type ('🌟')
+    trophy_piece = ""
 
     response = twiml.Response()
 
@@ -83,6 +84,7 @@ def quiz_game():
             score = session[from_number]
 
             message = "Correct Answer. You have %d points out of 30. %s" % (score, questions[game_round])
+            message = message.encode('utf-8')
             # if won give trophy:
             print 100, message
             #chosen_index = random.randint(0, num_trophies-1)
@@ -90,14 +92,29 @@ def quiz_game():
             #chosen_trophy = trophy_chars[chosen_index*2:(chosen_index+1)*2].encode('utf-8')
             #print 102, chosen_trophy
 
-            # message += '\xff\xfed\x008\x003\x00c\x00d\x00f\x00c\x006\x00'
-            message += u'🌟'.encode('utf-8')
-            print 103, message
+            # message += u'🌟'.encode('utf-8') #gives ascii error - type string
+            # message += u'\u1f31f'.encode('utf-8') #gives ascii error - type string
+            # message += unichr(int('1F31F', 16)).encode('utf-8') # valueerror - unichar arg not in range - no type given
+            # message += u'\u0001f31f'.encode('utf-8') #no error but no response - type string
+            # message += u'\u1f31f'.decode('unicode_escape') # ascii error - no type
+            # message += unicode('\u1f31f').decode('unicode_escape') # no error - response has weird content - unicode type
+            # message +=  unicode('u0001f31f',"unicode_escape").encode('utf-8') # no response - no error 
+            # message +=  unicode('u1f31f',"unicode_escape").encode('utf-8') # no error - type string - added the u value at the end 
+
+            # trophy_piece = '\xF0\x9F\x8F\x86'
+            # trophy_piece = u('\u1f31f').decode('unicode_escape')
+            # trophy_piece = u'\u1f31f'.encode('utf-8') # changes to \x.. which is 
+            
+            # message += unicode('u1f31f','unicode_escape').encode('utf-8')
+
         else:
             score = session[from_number]
             message = "Wrong answer. We were looking for %s. Your score is %d out of 30. %s" % (print_answers[game_round], score, questions[game_round])
 
         session['counter'] += 1
+
+    # message = unicode('U0001F31F').decode('unicode_escape')
+    # print 103, type(message)
 
     if session['counter'] > 3:
         session.pop(from_number, None)
@@ -106,5 +123,10 @@ def quiz_game():
     print 4, session
 
     response.sms(message)
-    return Response(str(response), mimetype='text/xml')
+    # response.sms(trophy_piece)
+
+
+    # print 5, response.sms(trophy_piece)
+
+    return Response(unicode(response))
 

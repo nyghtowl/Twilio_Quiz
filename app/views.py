@@ -84,7 +84,6 @@ def quiz_game():
             score = session[from_number]
 
             message = "Correct Answer. You have %d points out of 30. %s" % (score, questions[game_round])
-            message = message.encode('utf-8')
             # if won give trophy:
             print 100, message
             #chosen_index = random.randint(0, num_trophies-1)

@@ -13,15 +13,21 @@ import re, random
 client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# @app.route('/index')
+# def index():
+#     return render_template('index.html')
 
-# Clean up sent text
-def simplify_txt(submitted_txt):
-    response_letters = re.sub(r'\W+', '', submitted_txt)
-    return response_letters.lower()
+# # Clean up sent text
+# def simplify_txt(submitted_txt):
+#     response_letters = re.sub(r'\W+', '', submitted_txt)
+#     return response_letters.lower()
+
+@app.route('/')
+def view():
+  response = twiml.Response()
+  response.sms(u'\uf31f'.encode('utf-8'))
+  return Response([response])
 
  # Twiliocon challenge 4 - Create an sms quiz game
 @app.route("/quiz_game")

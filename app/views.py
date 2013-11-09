@@ -77,14 +77,13 @@ def quiz_game_emoji():
         else:
             score = session[from_number]
             message = u"Wrong answer. 👿 We were looking for %s. Your score is %d out of 30. %s" % (answers(game_round), score, questions(game_round))
-            
+
         session['counter'] += 1
 
     if session['counter'] > 3:
         session.pop(from_number, None)
         session['counter'] = 0
 
-    print 101, from_number, counter, message
     client.messages.create(
         from_ = TWILIO_NUMBER,
         to = from_number,
@@ -133,17 +132,3 @@ def quiz_game():
 
 
 
-    # message += u'🌟'.encode('utf-8') #gives ascii error - type string
-    # message += u'\u1f31f'.encode('utf-8') #gives ascii error - type string
-    # message += unichr(int('1F31F', 16)).encode('utf-8') # valueerror - unichar arg not in range - no type given
-    # message += u'\u0001f31f'.encode('utf-8') #no error but no response - type string
-    # message += u'\u1f31f'.decode('unicode_escape') # ascii error - no type
-    # message += unicode('\u1f31f').decode('unicode_escape') # no error - response has weird content - unicode type
-    # message +=  unicode('u0001f31f',"unicode_escape").encode('utf-8') # no response - no error 
-    # message +=  unicode('u1f31f',"unicode_escape").encode('utf-8') # no error - type string - added the u value at the end 
-
-    # trophy_piece = '\xF0\x9F\x8F\x86'
-    # trophy_piece = u('\u1f31f').decode('unicode_escape')
-    # trophy_piece = u'\u1f31f'.encode('utf-8') # changes to \x.. which is 
-    
-    # message += unicode('u1f31f','unicode_escape').encode('utf-8')

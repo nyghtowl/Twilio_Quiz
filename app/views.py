@@ -55,7 +55,7 @@ def quiz_game_emoji():
     body = request.values.get('Body', None)
     simplify_body = simplify_txt(body)
 
-    trophies = [u'👍', u'🏆', u'🌟']
+    trophies = [u'👍', u'🏆', u'🌟', u'🌈', u'❤', u'⭐', u'💰', u'💵']
     trophy_piece = ""
 
     chosen_trophy = random.randint(0, len(trophies)-1)
